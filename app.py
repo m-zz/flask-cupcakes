@@ -81,3 +81,16 @@ def delete_cupcake(id):
     db.session.commit()
 
     return jsonify(message="Cupcake gone")
+
+
+@app.route("/api/cupcakes/search/<search_term>")
+def search(search_term):
+    """Find cupcake entered into search bar and display cupcake data to user"""
+
+    cupcake = Cupcake.query.filter_by(flavor=search_term).all()
+
+    serialized = [c.serialized() for c in cupcake]
+
+    return jsonify(cupcakes=serialized)
+
+

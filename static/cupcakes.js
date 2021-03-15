@@ -49,6 +49,28 @@ async function updateCupcake(id){
   await getCupcakes();
 }
 
+async function search() {
+
+  let resp = await axios.get(`/api/cupcakes/search/${$("#search").val()}`)
+
+  let {cupcakes} = resp.data;
+  $("#cupcakes").empty();
+  $("#search").empty();
+  
+  for (let cupcake of cupcakes){
+    $("#cupcakes").append($(`<li id=${cupcake.id}>
+    <img style="height: 100px" src=${cupcake.image}>
+    Flavor: ${cupcake.flavor}
+    Rating: ${cupcake.rating}
+    Size: ${cupcake.size}
+    <button id=edit>Edit</button>
+    </li>`));
+  }
+
+
+
+}
+
 // PAGE LOAD AND EVENT HANDLERS //
 
 $(getCupcakes);
@@ -67,4 +89,9 @@ $("#cupcakes").on("click", "#edit", function (e) {
 $("form").on("click", "#edit", async function (e) {
   e.preventDefault();
   updateCupcake($("button").attr("class"));
+});
+
+$("#search-form").on("submit", async function(e) {
+  e.preventDefault();
+  search();
 });
