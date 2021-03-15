@@ -27,7 +27,7 @@ def index():
 @app.route("/api/cupcakes")
 def get_all_cupcakes():
     """show all cupcakes"""
-    cupcakes = Cupcake.query.all()
+    cupcakes = Cupcake.query.order_by(Cupcake.id).all()
     serialized = [c.serialized() for c in cupcakes]
 
     return jsonify(cupcakes=serialized)
