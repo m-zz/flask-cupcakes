@@ -18,6 +18,12 @@ connect_db(app)
 db.create_all()
 
 
+@app.route("/")
+def index():
+    """home page"""
+
+    return render_template("base.html")
+
 @app.route("/api/cupcakes")
 def get_all_cupcakes():
     """show all cupcakes"""
