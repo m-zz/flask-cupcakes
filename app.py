@@ -87,8 +87,8 @@ def delete_cupcake(id):
 def search(search_term):
     """Find cupcake entered into search bar and display cupcake data to user"""
 
-    cupcake = Cupcake.query.filter_by(flavor=search_term).all()
-
+    cupcake = Cupcake.query.filter(Cupcake.flavor.ilike(f"%{search_term}%")).all()
+    
     serialized = [c.serialized() for c in cupcake]
 
     return jsonify(cupcakes=serialized)

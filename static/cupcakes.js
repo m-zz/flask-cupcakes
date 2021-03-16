@@ -54,11 +54,10 @@ async function search() {
   let resp = await axios.get(`/api/cupcakes/search/${$("#search").val()}`)
 
   let {cupcakes} = resp.data;
-  $("#cupcakes").empty();
-  $("#search").empty();
+  $("#search-area").empty();
   
   for (let cupcake of cupcakes){
-    $("#cupcakes").append($(`<li id=${cupcake.id}>
+    $("#search-area").append($(`<li id=${cupcake.id}>
     <img style="height: 100px" src=${cupcake.image}>
     Flavor: ${cupcake.flavor}
     Rating: ${cupcake.rating}
